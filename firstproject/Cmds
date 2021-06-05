@@ -1,0 +1,44 @@
+MVT=Modals views Templates
+django-admin startproject <project name>
+python3 manage.py startapp <myapp>          A django project can have mutliple apps
+python3 manage.py runserver
+virtualenv <env name>
+
+. myenv/bin/activate=>(activates the env)
+    pip3 install django
+    
+    pip3 freeze > requirments.txt
+    pip3 install -r requirments.txt
+
+Settings.py under project
+    add your app
+
+
+Create an urls.py file in Django App
+
+
+
+Incude the newly created urls.py in the urls.py of the project
+    path('',include('myfirstapp.urls'))
+
+import views.py
+
+In app>urls.py import path and declare urlpatterns
+
+From urlpatterns use path methods to call views
+
+Create templates and scripts folders out side the project
+
+In settings.py in Templates=>'DIRS':[os.path.join(BASE_DIR,'templates')],
+STAICFILES_DIRS=[
+    os.path.join(BASE_DIR,'static')
+]
+
+
+
+
+
+STATICFILES_DIR=os.path.join(_BASEDIR_,'static')
+
+{%load static%}
+src="{%static 'images/img.png'%}"
