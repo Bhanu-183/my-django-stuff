@@ -5,3 +5,4 @@ from firstapp.models import *
 admin.site.register(Topic)
 admin.site.register(AccessRecord)
 admin.site.register(Webpage)
+admin.site.register(User)

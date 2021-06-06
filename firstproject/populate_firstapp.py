@@ -20,7 +20,7 @@ def populate(N=5):
     for entry in range(N):
         top = add_topic()  #top is an object 
         fake_url = fakegen.url()
-        fake_date = fakegen.date()
+        fake_date = fakegen.date(pattern='%Y-%m-%d', end_datetime=None)
         fake_name = fakegen.company()
         
         wpg = Webpage.objects.get_or_create(topics=top, url=fake_url, name=fake_name)[0]

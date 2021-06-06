@@ -1,4 +1,9 @@
 h2
 {
-    color:red;
+    color:rgb(7, 48, 134);
+}
+
+table,tr,td
+{
+    border: 2px solid red;
 }

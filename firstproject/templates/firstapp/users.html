@@ -1,0 +1,34 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+</head>
+
+<body>
+    <h1>The Users info is a follows:</h1>
+    {%if users%}
+
+    <ol>
+        {%for user in users%}
+        <li>User Info:</li>
+        <ul>
+            <li>
+                First Name:{{user.fname}}
+            </li>
+            <li>
+                Last Name:{{user.lname}}
+            </li>
+            <li>
+                Email:{{user.email}}
+            </li>
+        </ul>
+        <br>
+        {%endfor%}
+    </ol>
+    {%endif%}
+</body>
+
+</html>

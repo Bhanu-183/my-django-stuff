@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def index(request):
-    return HttpResponse("<h1>Hello world</h1>")
+from firstapp.models import Topic,Webpage,AccessRecord,User
 
-def testing(request):
-    my_dict = {
-        'name': 'Bhanu',
-        'age': 20,
-        'gender':'M'
-    }
-    return render(request,'index.html',context=my_dict)
+def index(request):
+    webpage_list = AccessRecord.objects.order_by('date')
+    date_dict={'records':webpage_list}
+    return render(request,'index.html',context=date_dict)
+
+
+def users(request):
+    user_list = User.objects.order_by('fname')
+    user_dict = {'users': user_list}
+    return render(request,'users.html',context=user_dict)

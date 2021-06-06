@@ -1,19 +1,35 @@
-<!DOCTYPE html>
-{%load static%}
 <html lang="en">
+{% load static%}
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="{%static 'styles/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRACTISE</title>
+    <link rel="stylesheet" href="{%static 'styles/styles.css'%}">
+    <title>Practise</title>
 </head>
 
 <body>
-    <h2>Testing the basics</h2>
-    <h3>Welcome {{name}},{{age}},{{gender}}</h3>
-    <img src="{%static 'images/img.png' %}" alt="" srcset="">
+    <h2>Welcome</h2>
+    <h3>Here are the list of records:</h3>
+    <div class="container">
+        {%if records %}
+        <table>
+            <thead>
+                <th>Site Name</th>
+                <th>Date of Access</th>
+            </thead>
+            {%for rcd in records%}
+            <tr>
+                <td>{{rcd.name}}</td>
+                <td>{{rcd.date}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+        {%else%}
+        <h2>No records found</h2>
+        {%endif%}
+    </div>
 </body>
 
 </html>
