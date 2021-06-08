@@ -13,6 +13,17 @@ def users(request):
     user_dict = {'users': user_list}
     return render(request, 'users.html', context=user_dict)
     
+def signup(request):
+    form = forms.NewUser()
+    if request.method == 'POST':
+        form = forms.NewUser(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print("ERROR")
+    return render(request, 'user2.html', context={'form': form})
+    
 def form_name_view(request):
     form = forms.FormName()
     if request.method == 'POST':
@@ -21,6 +32,9 @@ def form_name_view(request):
             name = form.cleaned_data['name']
             print("Name:", name)
             print("Email", form.cleaned_data['email'])
-            print("Text:",form.cleaned_data['text'])
+            print("Text:", form.cleaned_data['text'])
+        else:
+            print("Error")
     return render(request, 'form_page.html', context={'form': form})
+    
     
