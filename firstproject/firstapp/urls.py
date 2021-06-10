@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
-
+from django.contrib import admin
 urlpatterns = [
     path('', views.index, name="index"),
     path('users', views.users, name='users'),
     path('form', views.form_name_view, name='form'),
-    path('signup',views.signup, name="signup")
+    path('signup', views.signup, name="signup"),
+    path('register',views.register,name='register'),
 ]

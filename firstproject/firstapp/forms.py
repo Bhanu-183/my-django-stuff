@@ -1,6 +1,7 @@
 from django import forms
 from django.core import  validators
-from firstapp.models import User
+from firstapp.models import Users, UserProfileInfor
+from django.contrib.auth.models import User
 
 def check(value):
     if value[0].lower() != 'b':
@@ -23,5 +24,16 @@ class FormName(forms.Form):
 
 class NewUser(forms.ModelForm):
      class Meta:
+        model = Users
+        fields = '__all__'
+        
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
         model = User
-        fields='__all__'
+        fields = ('username', 'email', 'password')
+
+class UserProfileInfoform(forms.ModelForm):
+    class Meta:
+        model=UserProfileInfor
+        fields=('portfolio_site','profile_pic')

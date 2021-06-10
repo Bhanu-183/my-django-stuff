@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+# Importing forms.py
 from . import forms
-from firstapp.models import Topic,Webpage,AccessRecord,User
+from firstapp.forms import *
+from django.contrib.auth.models import User
+from firstapp.models import Topic,Webpage,AccessRecord,Users,UserProfileInfor
 
 def index(request):
     webpage_list = AccessRecord.objects.order_by('date')
@@ -9,7 +12,7 @@ def index(request):
     return render(request,'firstapp/index.html',context=date_dict)
 
 def users(request):
-    user_list = User.objects.order_by('fname')
+    user_list = Users.objects.order_by('fname')
     user_dict = {'users': user_list}
     return render(request, 'firstapp/users.html', context=user_dict)
     
@@ -18,6 +21,7 @@ def signup(request):
     if request.method == 'POST':
         form = forms.NewUser(request.POST)
         if form.is_valid():
+            # Use form.save to store the input values to the form 
             form.save(commit=True)
             return index(request)
         else:
@@ -38,3 +42,36 @@ def form_name_view(request):
     return render(request, 'firstapp/form_page.html', context={'form': form})
     
     
+def register(request):
+    registerd = False
+    print(registerd)
+    if request.method == 'POST':
+        
+        user_form = UserForm(data=request.POST)
+        profile_form = UserProfileInfoform(data=request.POST)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            print("Called")
+            user = user_form.save()
+            # Use ser_password for hashing
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            # profile user must be linked to the built in User as they are one to one related
+            profile.user = user
+            
+            if 'profile_pic' in request.FILES:
+                profile.profile_pic = request.FILES['profile_pic']
+            profile.save()
+            registerd = True
+            print(registerd)
+        else:
+            print('error')
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileInfoform()
+        
+    return render(request,'firstapp/register.html',context={'user_form':user_form,'profile_form':profile_form,'registerd':registerd})
+            
