@@ -6,12 +6,12 @@ from firstapp.models import Topic,Webpage,AccessRecord,User
 def index(request):
     webpage_list = AccessRecord.objects.order_by('date')
     date_dict={'records':webpage_list}
-    return render(request,'index.html',context=date_dict)
+    return render(request,'firstapp/index.html',context=date_dict)
 
 def users(request):
     user_list = User.objects.order_by('fname')
     user_dict = {'users': user_list}
-    return render(request, 'users.html', context=user_dict)
+    return render(request, 'firstapp/users.html', context=user_dict)
     
 def signup(request):
     form = forms.NewUser()
@@ -22,7 +22,7 @@ def signup(request):
             return index(request)
         else:
             print("ERROR")
-    return render(request, 'user2.html', context={'form': form})
+    return render(request, 'firstapp/user2.html', context={'form': form})
     
 def form_name_view(request):
     form = forms.FormName()
@@ -35,6 +35,6 @@ def form_name_view(request):
             print("Text:", form.cleaned_data['text'])
         else:
             print("Error")
-    return render(request, 'form_page.html', context={'form': form})
+    return render(request, 'firstapp/form_page.html', context={'form': form})
     
     
