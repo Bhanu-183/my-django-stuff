@@ -5,7 +5,7 @@ from firstapp.models import Topic,Webpage,AccessRecord,User
 
 def index(request):
     webpage_list = AccessRecord.objects.order_by('date')
-    date_dict={'records':webpage_list}
+    date_dict={'records':webpage_list,'testing':'hello world'}
     return render(request,'firstapp/index.html',context=date_dict)
 
 def users(request):
