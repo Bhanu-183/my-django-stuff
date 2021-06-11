@@ -7,16 +7,22 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>{%block title_block%}Register{%endblock%}</title>
 </head>
 
 <body>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <ul class='nav navbar-nav'>
-                <li><a href="{% url 'index' %}" class='navbar-brand'>Index</a></li>
-                <li><a class="navbar-link" href="{%url 'admin:index' %}">Admin</a></li>
-                <li><a class="navbar-link" href="{%url 'register'%}">Register</a></li>
+                <li class='navbar-brand'><a href="{% url 'index' %}">Index</a></li>
+                <li class="navbar-link"><a href="{%url 'admin:index' %}">Admin</a></li>
+                <li class="navbar-link"><a href="{%url 'register'%}">Register</a></li>
+
+                {%if user.is_authenticated %}
+                <li class="navbar-link"><a href="{%url 'user_logout' %}">Logout</a></li>
+                {%else%}
+                <li class="navbar-link"><a href="{%url 'user_login'%}">Login</a></li>
+                {%endif%}
 
             </ul>
         </div>

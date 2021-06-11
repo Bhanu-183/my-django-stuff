@@ -2,9 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # Importing forms.py
 from . import forms
-from firstapp.forms import *
+from firstapp.forms import UserForm,UserProfileInfoform,NewUser,FormName
 from django.contrib.auth.models import User
-from firstapp.models import Topic,Webpage,AccessRecord,Users,UserProfileInfor
+from firstapp.models import Topic, Webpage, AccessRecord, Users, UserProfileInfor
+
+
+#For Login
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
+
 
 def index(request):
     webpage_list = AccessRecord.objects.order_by('date')
@@ -46,10 +55,8 @@ def register(request):
     registerd = False
     print(registerd)
     if request.method == 'POST':
-        
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileInfoform(data=request.POST)
-        
         if user_form.is_valid() and profile_form.is_valid():
             print("Called")
             user = user_form.save()
@@ -73,5 +80,29 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileInfoform()
         
-    return render(request,'firstapp/register.html',context={'user_form':user_form,'profile_form':profile_form,'registerd':registerd})
-            
+    return render(request, 'firstapp/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'registerd': registerd})
+    
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                print("Username {} and password {}".format(username, password))
+                return HttpResponse("Account not active")
+        else:
+            print("Login Failed")
+            return HttpResponseRedirect(reverse('register'))
+    else:
+        return render(request,'firstapp/login.html')
+        
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
