@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+# CLASS BASED View
+from django.views.generic import View,TemplateView
+
 # Importing forms.py
 from . import forms
-from firstapp.forms import UserForm,UserProfileInfoform,NewUser,FormName
+from firstapp.forms import UserForm, UserProfileInfoform, NewUser, FormName
+
+#USER model
 from django.contrib.auth.models import User
+
 from firstapp.models import Topic, Webpage, AccessRecord, Users, UserProfileInfor
 
 
@@ -106,3 +113,23 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+#CBV
+
+class CBView(TemplateView):
+    template_name='firstapp/classview.html'
+
+    #get() method is used when we want to return Httpresponse
+    # def get(self, request):
+    #     return HttpResponse("CBV VIEW")
+
+    
+    #To pass context data
+    
+    def get_context_data(self, **kwargs):
+        webpage_list = AccessRecord.objects.order_by('date')
+        date_dict = {'records': webpage_list}
+        context=super().get_context_data(**kwargs)
+        context['date_dict'] =date_dict
+        return context
+        
