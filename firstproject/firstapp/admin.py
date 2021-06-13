@@ -8,3 +8,8 @@ admin.site.register(AccessRecord)
 admin.site.register(Webpage)
 admin.site.register(Users)
 admin.site.register(UserProfileInfor)
+
+
+
+admin.site.register(School)
+admin.site.register(Student)

@@ -40,3 +40,20 @@ class UserProfileInfor(models.Model):
     
     def __str__(self):
         return self.user.username
+
+
+class School(models.Model):
+    name = models.CharField(max_length=265)
+    principal = models.CharField(max_length=265)
+    location = models.CharField(max_length=265)
+
+    def __str__(self):
+        return self.name
+    
+class Student(models.Model):
+    name = models.CharField(max_length=265)
+    age = models.PositiveIntegerField()
+    school = models.ForeignKey(School, related_name='Students',on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name

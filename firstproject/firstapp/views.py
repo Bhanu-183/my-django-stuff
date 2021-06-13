@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # CLASS BASED View
-from django.views.generic import View,TemplateView
+from django.views.generic import View,TemplateView,DetailView,ListView
 
 # Importing forms.py
 from . import forms
@@ -10,8 +10,8 @@ from firstapp.forms import UserForm, UserProfileInfoform, NewUser, FormName
 
 #USER model
 from django.contrib.auth.models import User
-
-from firstapp.models import Topic, Webpage, AccessRecord, Users, UserProfileInfor
+from . import models
+from firstapp.models import Topic, Webpage, AccessRecord, Users, UserProfileInfor,School,Student
 
 
 #For Login
